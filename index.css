@@ -1,0 +1,18 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cardRecipe {
+  display: flex;
+  flex-direction: column;
+  background-color: dimgrey;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: aliceblue;
+  padding: 25px;
+}
+
+.cardRecipe ul {
+  list-style: none;
+}
