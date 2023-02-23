@@ -29,7 +29,7 @@ class Recipe {
             ${this.getIngredientsList()}
           </ul>
           <p>${this.description}</p>
-      </div>`;
+      </div>`
   }
 }
 
