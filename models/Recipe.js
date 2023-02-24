@@ -3,7 +3,7 @@ class Recipe {
     Object.assign(this, data);
   }
 
-  getIngredientsList() {
+  getList() {
     let ingredientsList = "";
     this.ingredients.forEach((ingredient) => {
       let quantityString = "";
@@ -26,10 +26,10 @@ class Recipe {
           <h2>${this.name}</h2>
           <p>durée : ${this.time}</p>
           <ul>
-            ${this.getIngredientsList()}
+            ${this.getList()}
           </ul>
           <p>${this.description}</p>
-      </div>`
+      </div>`;
   }
 }
 

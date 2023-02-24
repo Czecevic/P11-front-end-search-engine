@@ -1,34 +1,45 @@
 import Recipe from "../models/recipe.js";
+import { searchInput } from "../utils/const.js";
+import { displayRecipes } from "./index.js";
 
-const mainSearch = (searchList, searchInput, recette) => {
-  let searchresult = [];
+const mainSearch = (recipes) => {
   searchInput.addEventListener("keyup", (e) => {
     let keypressed = e.target.value;
     if (keypressed.length > 2) {
-      for (let i = 0; i < searchList.length; i++) {
-        // console.log(searchList[i].name.includes(keypressed));
+      let searchresult = [];
+      for (let i = 0; i < recipes.length; i++) {
+        let nameDescription = false;
+        let ingredient = false;
         if (
-          searchList[i].name.toLowerCase().includes(keypressed.toLowerCase())
+          recipes[i].name.toLowerCase().includes(keypressed.toLowerCase()) ||
+          recipes[i].description
+            .toLowerCase()
+            .includes(keypressed.toLowerCase())
         ) {
-          // console.log(searchList[i], searchresult);
-          if (!searchresult.includes(searchList[i])) {
-            searchresult.push(searchList[i]);
-          } else {
-            searchresult.remove();
-          }
+          nameDescription = true;
         }
+        recipes[i].ingredients.forEach((ingredient) => {
+          // console.log(ingredient.ingredient);
+          if (
+            ingredient.ingredient
+              .toLowerCase()
+              .includes(keypressed.toLowerCase())
+          ) {
+            ingredient = true;
+          }
+        });
+        if (nameDescription || ingredient)
+          if (!searchresult.includes(recipes[i])) {
+            searchresult.push(recipes[i]);
+          }
       }
-      recette.innerHTML = searchresult
-        .map((searchList) => new Recipe(searchList).render())
-        .join();
+      displayRecipes(searchresult);
     } else {
-      // console.log('tot')
-      searchresult = [];
-      recette.innerHTML = searchList
-      .map((searchL) => new Recipe(searchL).render())
-      .join();
+      displayRecipes(recipes);
     }
   });
 };
 
 export { mainSearch };
+
+// utiliser filter a la place de foreach
