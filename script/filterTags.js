@@ -36,6 +36,8 @@ const filterTags = (recipes) => {
     });
   });
 
+  
+
   btnAppareil.addEventListener("keyup", (e) => {
     filterByInput(appareilList, e.target, (recipe) => {
       return [recipe.appliance];
