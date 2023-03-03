@@ -8,39 +8,54 @@
     <title>Les petits plats</title>
   </head>
   <body>
+    <h1>Les Petits Plats</h1>
     <nav>
       <div class="search">
         <input type="text" placeholder="Type to search..." />
-        <!-- <i class="fas fa-search"></i> -->
+        <i class="fas fa-search"></i>
       </div>
-      <div id="tagList"></div>
-      <div class="boxList" id="ingredientsButton">
-        <span class="list-ingredients padding title">ingredients</span>
-        <i class="fas fa-chevron-down movechevron"></i>
-        <input type="text" id="ingredientsSearch" />
-        <div id="ingredientsList" class="listOfingredients">
-          <ul class="search-list-ingredient"></ul>
+      <div id="tagList">
+        <div class="boxList" id="ingredientsButton">
+          <div class="search-container">
+            <input
+              type="text"
+              id="ingredientsSearch"
+              placeholder="ingredients"
+            />
+            <button type="button" class="searchButton">
+              <i class="fas fa-chevron-down movechevron"></i>
+            </button>
+            <div class="listOfingredients">
+              <ul id="ingredientsList"></ul>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="boxList" id="appareilButton">
-        <span class="list-appareils padding title">Appareil</span>
-        <i class="fas fa-chevron-down movechevron"></i>
-        <input type="text" id="appareilSearch" />
-        <div id="appareilList" class="listOfAppareil">
-          <ul class="search-list-appareils"></ul>
+        <div class="boxList" id="appareilButton">
+          <div class="search-container">
+            <input type="text" id="appareilSearch" placeholder="appareils" />
+            <button type="button" class="searchButton">
+              <i class="fas fa-chevron-down movechevron"></i>
+            </button>
+            <div class="listOfAppareil">
+              <ul id="appareilList"></ul>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="boxList" id="ustensilesButton">
-        <span class="list-ustensiles padding title">Ustensiles</span>
-        <i class="fas fa-chevron-down movechevron"></i>
-        <input type="text" id="ustensilesSearch" />
-        <div id="UstensilesList" class="listOfUstencils">
-          <ul class="search-list-ustencils"></ul>
+        <div class="boxList" id="ustensilesButton">
+          <div class="search-container">
+            <input type="text" id="ustensilesSearch" placeholder="ustensiles" />
+            <button type="button" class="searchButton">
+              <i class="fas fa-chevron-down movechevron"></i>
+            </button>
+            <div class="listOfUstencils">
+              <ul id="UstensilesList"></ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
     <main>
-      <div id="recette"></div>
+      <div class="cardContainer" id="recette"></div>
     </main>
   </body>
   <script

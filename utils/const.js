@@ -1,17 +1,17 @@
 // ingredients
 const ingredientList = document.querySelector("#ingredientsList");
 const btnIngredient = document.querySelector("#ingredientsSearch");
-const ingredientSpan = document.querySelectorAll("i")[0];
+const ingredientSpan = document.querySelector("#ingredientsButton i");
 
 // appareil
 const appareilList = document.querySelector("#appareilList");
 const btnAppareil = document.querySelector("#appareilSearch");
-const appareilSpan = document.querySelectorAll("i")[1];
+const appareilSpan = document.querySelector("#appareilButton i");
 
 // ustensiles
 const ustensilesList = document.querySelector("#UstensilesList");
 const btnUstensiles = document.querySelector("#ustensilesSearch");
-const ustensilesSpan = document.querySelectorAll("i")[2];
+const ustensilesSpan = document.querySelector("#ustensilesButton i");
 
 // affichage des recettes
 const recette = document.querySelector("#recette");
@@ -28,4 +28,7 @@ export {
   btnUstensiles,
   recette,
   searchInput,
+  ingredientSpan,
+  appareilSpan,
+  ustensilesSpan,
 };
