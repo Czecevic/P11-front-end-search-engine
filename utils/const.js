@@ -17,8 +17,8 @@ const ustensilesSpan = document.querySelector("#ustensilesButton i");
 const recette = document.querySelector("#recette");
 const searchInput = document.querySelector(".search");
 
-// mettre search à la place de input
-
+// ingredients / appareil / ustensiles
+const tagList = document.querySelector("#tagList");
 export {
   ingredientList,
   btnIngredient,
@@ -31,4 +31,5 @@ export {
   ingredientSpan,
   appareilSpan,
   ustensilesSpan,
+  tagList,
 };

@@ -159,7 +159,7 @@ nav button {
   overflow: auto;
 }
 
-#tagList {
+#List {
   display: flex;
   flex-direction: row;
   margin-top: 1rem;
