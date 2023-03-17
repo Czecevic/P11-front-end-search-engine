@@ -7,15 +7,27 @@ main {
 body {
   margin: auto;
   font-family: "Lato", sans-serif;
+  background-color: #181818;
 }
 
 header {
   margin-top: 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  padding: 25px 0;
+}
+
+.headerTitle {
+  color: #d04f4f;
+  text-align: center;
 }
 
 nav {
   margin: auto;
-  max-width: 75%;
+  max-width: 85%;
 }
 
 /* la barre de recherche  */
@@ -28,6 +40,8 @@ nav {
 }
 
 .search input[type="text"] {
+  background-color: #333;
+  color: #ccc;
   width: 100%;
   padding: 0.5rem 1.5rem;
   font-size: 1.2rem;
@@ -38,21 +52,23 @@ nav {
 }
 
 .search input[type="text"]:focus {
+  background-color: rgba(0, 0, 0, 0.7);
   outline: none;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
 }
 
 .fa-search {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  position: absolute; /* position absolue par rapport à l'input */
+  top: 50%; /* position verticale centrée */
+  right: 10px; /* position horizontale */
+  transform: translateY(-50%); /* pour centrer verticalement */
+  pointer-events: none; /* empêche le clic sur le chevron */
 }
 .search i {
   position: absolute;
   right: 1rem;
   font-size: 1.2rem;
-  color: #333;
+  color: #ccc;
   cursor: pointer;
 }
 
@@ -62,46 +78,134 @@ nav ul {
   padding-inline-start: 0em;
   grid-template-columns: 1fr 1fr 1fr;
   list-style-type: none;
-  display: grid;
+  flex-direction: column;
 }
 
 nav li {
   list-style: none;
   font-size: 1.2em;
   font-weight: 500;
-  padding-top: 1em;
-  padding-left: 0.8em;
+  padding: 1em;
+  cursor: pointer;
+}
+
+#tagList {
+  display: flex;
+  color: white;
+  padding: 1em 0em;
+  gap: 10px;
+}
+
+.tag-ingredient {
+  background-color: #3282f7;
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 5%;
+}
+
+.tag-appliances {
+  background-color: #68d9a4;
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 5%;
+}
+
+.tag-ustensils {
+  background-color: #d04f4f;
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 5%;
+}
+
+.remove-tag {
+  background-color: transparent;
+  font-size: 1.2em;
+  cursor: pointer;
 }
 
 .search-container {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 
 .searchButton {
   background-color: transparent;
+  position: relative;
   border: none;
   cursor: pointer;
 }
 
 .searchButton i {
   font-size: 1.2rem;
-  bottom: 1.5rem;
-  left: 4rem;
-  position: relative;
 }
 
-#ingredientsSearch,
-#appareilSearch,
-#ustensilesSearch {
+#ingredientsSearch {
+  background-color: #3282f7;
+  border: none;
+  text-align: left;
+  color: #ffffff;
+  font-size: 16px;
+  height: 90%;
   padding: 1rem;
   margin-right: 1rem;
 }
 
-#ingredientsButton,
-#appareilButton,
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+#appareilSearch {
+  background-color: #68d9a4;
+  border: none;
+  text-align: left;
+  color: #ccc;
+  font-size: 16px;
+  height: 90%;
+  padding: 1rem;
+  margin-right: 1rem;
+}
+
+#ustensilesSearch {
+  background-color: #e83a26;
+  border: none;
+  text-align: left;
+  color: #ccc;
+  font-size: 16px;
+  height: 90%;
+  padding: 1rem;
+  margin-right: 1rem;
+}
+
+#ingredientsButton {
+  position: relative;
+  background-color: #3282f7;
+}
+
+#appareilButton {
+  position: relative;
+  background-color: #68d9a4;
+}
 #ustensilesButton {
   position: relative;
+  background-color: #e83a26;
+}
+
+.listOfingredients {
+  display: flex;
+  background-color: #3282f7;
+  color: white;
+}
+
+.listOfAppareil {
+  display: flex;
+  background-color: #68d9a4;
+  color: white;
+}
+
+.listOfUstencils {
+  display: flex;
+  background-color: #e83a26;
+  color: white;
 }
 
 .movechevron {
@@ -125,8 +229,9 @@ main li {
 
 .fa-chevron-down {
   animation: chevronRotate 2s backwards;
+  color: white;
   margin-left: auto;
-  margin-right: 0.5em;
+  margin-right: 1em;
   cursor: pointer;
   transition: all 0.4s;
 }
@@ -146,6 +251,8 @@ main li {
   padding-left: 1.4em;
   padding-right: 1.4em;
   cursor: default;
+  background-color: #181818;
+  color: white;
 }
 
 nav button {
@@ -160,9 +267,12 @@ nav button {
 }
 
 #List {
+  margin-bottom: 15px;
+  flex-wrap: wrap;
   display: flex;
-  flex-direction: row;
-  margin-top: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .cardContainer {
@@ -180,8 +290,8 @@ nav button {
   margin-bottom: 20px;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
-  background-color: #ffffff;
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.339);
+  background-color: #181818;
 }
 
 .cardRecipe h2 {

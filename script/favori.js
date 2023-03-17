@@ -13,15 +13,42 @@ const printFavoriItem = () => {
   itemFavori.forEach((item) => {
     item.addEventListener("click", (e) => {
       let tag = e.target.innerHTML.toLowerCase();
-      let tagButton = document.createElement("button"); // création du bouton
+      let tagType = "";
+      let tagButton = document.createElement("button");
       tagButton.innerHTML = "x";
       tagButton.addEventListener("click", () => {
-        console.log("test");
         removeTag(tag);
       });
-      if (!selectedTags.includes(tag)) {
+
+      // Check if the tag is an ingredient, utensil, or appliance
+      if (
+        currentRecipes.some((recipe) =>
+          recipe.ingredients
+            .map((ingredient) => ingredient.ingredient.toLowerCase())
+            .includes(tag)
+        )
+      ) {
+        tagType = "ingredient";
+        updateRecipes();
+      } else if (
+        currentRecipes.some((recipe) =>
+          recipe.ustensils
+            .map((ustensil) => ustensil.toLowerCase())
+            .includes(tag)
+        )
+      ) {
+        tagType = "ustensils";
+        updateRecipes();
+      } else if (
+        currentRecipes.some((recipe) => recipe.appliance.toLowerCase() === tag)
+      ) {
+        tagType = "appliances";
+        updateRecipes();
+      }
+      // Add the tag to the selected tags list
+      if (tagType !== "" && !selectedTags.includes(tag)) {
         selectedTags.push(tag);
-        tagList.innerHTML += `<div class="tag"><span>${tag}</span><button class="remove-tag">x</button></div>`;
+        tagList.innerHTML += `<div class="tag-${tagType}"><span>${tag}</span><button class="remove-tag">x</button></div>`;
         const removeButtons = document.querySelectorAll(".remove-tag");
         removeButtons.forEach((button) => {
           button.addEventListener("click", () => {
@@ -58,7 +85,31 @@ const removeTag = (tag) => {
   selectedTags = selectedTags.filter((selectedTag) => selectedTag !== tag);
   tagList.innerHTML = "";
   selectedTags.forEach((selectedTag) => {
-    tagList.innerHTML += `<div class="tag"><span>${selectedTag}</span><button class="remove-tag">x</button></div>`;
+    let tagType = "";
+    if (
+      currentRecipes.some((recipe) =>
+        recipe.ingredients
+          .map((ingredient) => ingredient.ingredient.toLowerCase())
+          .includes(selectedTag)
+      )
+    ) {
+      tagType = "ingredient";
+    } else if (
+      currentRecipes.some((recipe) =>
+        recipe.ustensils
+          .map((ustensil) => ustensil.toLowerCase())
+          .includes(selectedTag)
+      )
+    ) {
+      tagType = "ustensils";
+    } else if (
+      currentRecipes.some(
+        (recipe) => recipe.appliance.toLowerCase() === selectedTag
+      )
+    ) {
+      tagType = "appliances";
+    }
+    tagList.innerHTML += `<div class="tag-${tagType}"><span>${selectedTag}</span><button class="remove-tag">x</button></div>`;
   });
   const removeButtons = document.querySelectorAll(".remove-tag");
   removeButtons.forEach((button) => {

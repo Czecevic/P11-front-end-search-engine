@@ -15,10 +15,10 @@ import { displayRecipes } from "./index.js";
 
 const filterTags = (recipes) => {
   let seeRecipes = false;
-  const filterByInput = (list, input, filterFunction) => {
+  const filterByInput = (list, input, filterFunction, special) => {
     const key = input.value.toLowerCase();
     if (key.length > 0) {
-      list.style.display = "block";
+      list.style.display = "grid";
       list.innerHTML = "";
       const addedItems = {};
       recipes.forEach((recipe) => {
@@ -26,7 +26,8 @@ const filterTags = (recipes) => {
           const itemName = item.toLowerCase();
           if (itemName.includes(key)) {
             if (!addedItems[itemName]) {
-              list.innerHTML += `<li class="search-list-ingredients">
+              console.log(item);
+              list.innerHTML += `<li class="search-list-${special}">
               <a id="itemFavori">${item}</a>
               </li>`;
               addedItems[itemName] = true;
@@ -35,7 +36,6 @@ const filterTags = (recipes) => {
         });
       });
       seeRecipes = true;
-
       // Ajouter un gestionnaire d'événements click à chaque élément de la liste
       const itemFavoriList = document.querySelectorAll(
         ".search-list-ingredients a"
@@ -59,9 +59,9 @@ const filterTags = (recipes) => {
     printFavoriItem();
   };
 
-  const allRecipesBySpan = (list, filterFunction) => {
+  const allRecipesBySpan = (list, filterFunction, special) => {
     if (seeRecipes == false) {
-      list.style.display = "block";
+      list.style.display = "grid";
       list.innerHTML = "";
       const addedItems = {};
       recipes.forEach((recipe) => {
@@ -69,9 +69,9 @@ const filterTags = (recipes) => {
           const itemName = item.toLowerCase();
           if (!addedItems[itemName]) {
             addedItems[itemName] = true;
-            list.innerHTML += `<li class="search-list-ingredients">
-                <a>${item}</a>
-              </li>`;
+            list.innerHTML += `<li class="search-list-${special}">
+                  <a>${item}</a>
+                </li>`;
           }
         });
       });
@@ -113,39 +113,66 @@ const filterTags = (recipes) => {
 
   // Ajouter un événement "click" au bouton
   ingredientSpan.addEventListener("click", () => {
-    allRecipesBySpan(ingredientList, (recipe) => {
-      return recipe.ingredients.map((ingredient) => ingredient.ingredient);
-    });
+    allRecipesBySpan(
+      ingredientList,
+      (recipe) => {
+        return recipe.ingredients.map((ingredient) => ingredient.ingredient);
+      },
+      "ingredient"
+    );
   });
 
   btnIngredient.addEventListener("keyup", (e) => {
-    filterByInput(ingredientList, e.target, (recipe) => {
-      return recipe.ingredients.map((ingredient) => ingredient.ingredient);
-    });
+    filterByInput(
+      ingredientList,
+      e.target,
+      (recipe) => {
+        return recipe.ingredients.map((ingredient) => ingredient.ingredient);
+      },
+      "ingredient"
+    );
   });
 
   appareilSpan.addEventListener("click", () => {
-    allRecipesBySpan(appareilList, (recipe) => {
-      return [recipe.appliance];
-    });
+    allRecipesBySpan(
+      appareilList,
+      (recipe) => {
+        return [recipe.appliance];
+      },
+      "appareil"
+    );
   });
 
   btnAppareil.addEventListener("keyup", (e) => {
-    filterByInput(appareilList, e.target, (recipe) => {
-      return [recipe.appliance];
-    });
+    filterByInput(
+      appareilList,
+      e.target,
+      (recipe) => {
+        return [recipe.appliance];
+      },
+      "appareil"
+    );
   });
 
   ustensilesSpan.addEventListener("click", () => {
-    allRecipesBySpan(ustensilesList, (recipe) => {
-      return recipe.ustensils;
-    });
+    allRecipesBySpan(
+      ustensilesList,
+      (recipe) => {
+        return recipe.ustensils;
+      },
+      "ustensils"
+    );
   });
 
   btnUstensiles.addEventListener("keyup", (e) => {
-    filterByInput(ustensilesList, e.target, (recipe) => {
-      return recipe.ustensils;
-    });
+    filterByInput(
+      ustensilesList,
+      e.target,
+      (recipe) => {
+        return recipe.ustensils;
+      },
+      "ustensils"
+    );
   });
 };
 
