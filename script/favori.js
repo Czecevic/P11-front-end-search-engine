@@ -20,7 +20,8 @@ const printFavoriItem = () => {
         removeTag(tag);
       });
 
-      // Check if the tag is an ingredient, utensil, or appliance
+      // Check if the tag is an ingredient, utensils, or appliance
+      console.log(currentRecipes)
       if (
         currentRecipes.some((recipe) =>
           recipe.ingredients
@@ -29,6 +30,7 @@ const printFavoriItem = () => {
         )
       ) {
         tagType = "ingredient";
+        console.log(tagType)
         updateRecipes();
       } else if (
         currentRecipes.some((recipe) =>

@@ -7,7 +7,7 @@ const mainSearch = (recipes) => {
   searchInput.addEventListener("keyup", (e) => {
     let keypressed = e.target.value.toLowerCase();
     if (keypressed.length > 2) {
-      const filteredRecipes = recipes.filter((recipe) => {
+      currentRecipes = recipes.filter((recipe) => {
         const nameDescription =
           recipe.name.toLowerCase().includes(keypressed) ||
           recipe.description.toLowerCase().includes(keypressed);
@@ -16,7 +16,7 @@ const mainSearch = (recipes) => {
         );
         return nameDescription || ingredient;
       });
-      displayRecipes(filteredRecipes);
+      displayRecipes(currentRecipes);
     } else {
       displayRecipes(recipes);
     }

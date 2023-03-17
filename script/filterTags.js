@@ -112,7 +112,10 @@ const filterTags = (recipes) => {
   };
 
   // Ajouter un événement "click" au bouton
+  console.log('install event')
   ingredientSpan.addEventListener("click", () => {
+    console.log('triggered event')
+    console.log(ingredientList)
     allRecipesBySpan(
       ingredientList,
       (recipe) => {
