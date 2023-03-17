@@ -21,6 +21,7 @@ const printFavoriItem = () => {
       });
 
       // Check if the tag is an ingredient, utensils, or appliance
+      // mettre une classe dans le html (definir si c'est un ingredient / appliance)
       console.log(currentRecipes)
       if (
         currentRecipes.some((recipe) =>
