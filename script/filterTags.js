@@ -115,7 +115,7 @@ const filterTags = (recipes) => {
   console.log('install event')
   ingredientSpan.addEventListener("click", () => {
     console.log('triggered event')
-    console.log(ingredientList)
+    // appeler cette fonction
     allRecipesBySpan(
       ingredientList,
       (recipe) => {
