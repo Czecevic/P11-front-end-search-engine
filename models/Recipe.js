@@ -14,7 +14,13 @@ class Recipe {
         quantityString = `2`;
       }
       if (ingredient.unit !== undefined) {
-        unitString = `${ingredient.unit}`;
+        let g = ''
+        if (ingredient.unit == "grammes") {
+          g = 'g'
+        } else {
+          g = ingredient.unit
+        }
+        unitString = `${g}`;
       }
       ingredientsList += `<li><strong>${ingredient.ingredient}</strong>: ${quantityString}${unitString}</li>`;
     });
@@ -23,13 +29,20 @@ class Recipe {
 
   render() {
     return `<div class="cardRecipe">
-          <h2>${this.name}</h2>
-          <p>durée : ${this.time}</p>
-          <ul>
-            ${this.getList()}
-          </ul>
-          <p>${this.description}</p>
-      </div>`;
+    <div class="img"></div>
+    <div class="AllElmInCardRecipe">
+      <div class="cardRecipeTitleTime">
+        <h2>${this.name}</h2>
+        <p>durée : ${this.time}</p>
+      </div>
+      <div class="cardRecipeingredientDescription">
+        <ul>
+          ${this.getList()}
+        </ul>
+        <p class="recipeDescription">${this.description}</p>
+      </div>
+    </div>
+  </div>`;
   }
 }
 

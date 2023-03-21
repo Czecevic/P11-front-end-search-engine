@@ -1,13 +1,12 @@
 main {
   font-family: DM Sans, sans-serif;
-  margin: auto;
-  transform: rotate(0deg) scale(1);
+  padding: 0 100px 0 100px;
 }
 
 body {
   margin: auto;
   font-family: "Lato", sans-serif;
-  background-color: #181818;
+  background-color: #ffffff;
 }
 
 header {
@@ -21,7 +20,7 @@ header {
 }
 
 .headerTitle {
-  color: #d04f4f;
+  color: #ed6454;
   text-align: center;
 }
 
@@ -58,11 +57,11 @@ nav {
 }
 
 .fa-search {
-  position: absolute; /* position absolue par rapport à l'input */
-  top: 50%; /* position verticale centrée */
+  position: absolute; /* position absolue par rapport Ã  l'input */
+  top: 50%; /* position verticale centrÃ©e */
   right: 10px; /* position horizontale */
   transform: translateY(-50%); /* pour centrer verticalement */
-  pointer-events: none; /* empêche le clic sur le chevron */
+  pointer-events: none; /* empÃªche le clic sur le chevron */
 }
 .search i {
   position: absolute;
@@ -111,7 +110,7 @@ nav li {
 }
 
 .tag-ustensils {
-  background-color: #d04f4f;
+  background-color: #ed6454;
   font-size: 1.2em;
   padding: 5px;
   border-radius: 5%;
@@ -166,7 +165,7 @@ nav li {
 }
 
 #ustensilesSearch {
-  background-color: #e83a26;
+  background-color: #ed6454;
   border: none;
   text-align: left;
   color: #ccc;
@@ -187,7 +186,7 @@ nav li {
 }
 #ustensilesButton {
   position: relative;
-  background-color: #e83a26;
+  background-color: #ed6454;
 }
 
 .listOfingredients {
@@ -204,7 +203,7 @@ nav li {
 
 .listOfUstencils {
   display: flex;
-  background-color: #e83a26;
+  background-color: #ed6454;
   color: white;
 }
 
@@ -245,14 +244,32 @@ main li {
   align-content: space-between;
   flex-direction: row;
 }
+.img {
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  height: 35%;
+  background-color: #384141;
+}
+.AllElmInCardRecipe {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 5px 5px;
+  height: 45%;
+  overflow: hidden;
+  padding: 20px;
+  background-color: #e7e7e7;
+  color: #000;
+}
+.cardRecipeTitleTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
 
-.cardRecipe {
-  max-width: 360px;
-  padding-left: 1.4em;
-  padding-right: 1.4em;
-  cursor: default;
-  background-color: #181818;
-  color: white;
+.cardRecipeingredientDescription {
+  display: flex;
+  gap: 10px;
+  overflow-y: auto;
 }
 
 nav button {
@@ -275,23 +292,25 @@ nav button {
   gap: 20px;
 }
 
+.sectionOfCardContainer {
+  margin: 30px;
+}
+
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: stretch;
   margin: 0 auto;
-  max-width: 1200px;
+  width: 100%;
   padding: 0 10px;
 }
 
 .cardRecipe {
-  flex-basis: calc(33.33% - 30px);
   margin-bottom: 20px;
   padding: 10px;
+  width: 30%;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.339);
-  background-color: #181818;
 }
 
 .cardRecipe h2 {
@@ -299,18 +318,18 @@ nav button {
   margin-top: 0;
 }
 
-.cardRecipe p {
-  margin-bottom: 5px;
+.recipeDescription {
+  font-size: 12px;
+  width: 100%;
 }
 
 .cardRecipe ul {
-  margin: 5px 0 10px 0;
-  padding-left: 20px;
-  list-style-type: disc;
+  width: 100%;
+  height: 10rem;
 }
 
 @media screen and (max-width: 600px) {
-  /* Styles pour les écrans de moins de 600px de large */
+  /* Styles pour les Ã©crans de moins de 600px de large */
   .cardRecipe {
     width: 100%;
   }
