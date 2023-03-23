@@ -8,8 +8,11 @@ let selectedTags = []; // liste pour stocker tous les tags sélectionnés
 
 // recuperer les recettes via le mainSearch
 
-const printFavoriItem = () => {
-  const itemFavori = document.querySelectorAll("ul li a");
+const printTagItem = (event) => {
+  const valueInput = event.currentTarget.value;
+  const container = event.currentTarget.parentElement;
+
+  // const itemFavori = document.querySelectorAll("ul li a");
   itemFavori.forEach((item) => {
     item.addEventListener("click", (e) => {
       let tag = e.target.innerHTML.toLowerCase();
@@ -22,7 +25,7 @@ const printFavoriItem = () => {
 
       // Check if the tag is an ingredient, utensils, or appliance
       // mettre une classe dans le html (definir si c'est un ingredient / appliance)
-      console.log(currentRecipes)
+      console.log(currentRecipes);
       if (
         currentRecipes.some((recipe) =>
           recipe.ingredients
@@ -31,7 +34,7 @@ const printFavoriItem = () => {
         )
       ) {
         tagType = "ingredient";
-        console.log(tagType)
+        console.log(tagType);
         updateRecipes();
       } else if (
         currentRecipes.some((recipe) =>
@@ -106,9 +109,10 @@ const removeTag = (tag) => {
     ) {
       tagType = "ustensils";
     } else if (
-      currentRecipes.some(
-        (recipe) => recipe.appliance.toLowerCase() === selectedTag
-      )
+      currentRecipes.some((recipe) => {
+        console.log(recipe.appliance);
+        recipe.appliance.toLowerCase() === selectedTag;
+      })
     ) {
       tagType = "appliances";
     }
@@ -123,4 +127,4 @@ const removeTag = (tag) => {
   updateRecipes();
 };
 
-export { printFavoriItem };
+export { printTagItem };

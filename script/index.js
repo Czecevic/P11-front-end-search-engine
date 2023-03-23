@@ -1,7 +1,7 @@
 import recipes from "../recipes.js";
 // import * as consts from "../utils/const.js";
 import Recipe from "../models/recipe.js";
-import { mainSearch } from "./mainSearch.js";
+import { currentRecipes, mainSearch } from "./mainSearch.js";
 import { filterTags } from "./filterTags.js";
 
 const displayRecipes = (recipes) => {
@@ -15,7 +15,7 @@ const displayRecipes = (recipes) => {
 const init = () => {
   displayRecipes(recipes);
   mainSearch(recipes);
-  filterTags(recipes);
+  filterTags(currentRecipes);
 };
 
 init();

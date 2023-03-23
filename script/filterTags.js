@@ -14,6 +14,7 @@ import { currentRecipes } from "./mainSearch.js";
 import { displayRecipes } from "./index.js";
 
 const filterTags = (recipes) => {
+  console.log(recipes);
   let seeRecipes = false;
   const filterByInput = (list, input, filterFunction, special) => {
     const key = input.value.toLowerCase();
@@ -110,11 +111,9 @@ const filterTags = (recipes) => {
   const removeList = (list) => {
     list.innerHTML = "";
   };
-
   // Ajouter un événement "click" au bouton
-  console.log('install event')
+
   ingredientSpan.addEventListener("click", () => {
-    console.log('triggered event')
     // appeler cette fonction
     allRecipesBySpan(
       ingredientList,
@@ -156,7 +155,6 @@ const filterTags = (recipes) => {
       "appareil"
     );
   });
-
   ustensilesSpan.addEventListener("click", () => {
     allRecipesBySpan(
       ustensilesList,
