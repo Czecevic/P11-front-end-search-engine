@@ -9,7 +9,7 @@ import {
   appareilSpan,
   ustensilesSpan,
 } from "../utils/const.js";
-import { printFavoriItem } from "./favori.js";
+import { printTagItem } from "./tag.js";
 import { currentRecipes } from "./mainSearch.js";
 import { displayRecipes } from "./index.js";
 
@@ -37,34 +37,39 @@ const filterTags = (recipes) => {
       });
       seeRecipes = true;
       // Ajouter un gestionnaire d'événements click à chaque élément de la liste
-      const itemFavoriList = document.querySelectorAll(
-        ".search-list-ingredients a"
-      );
-      itemFavoriList.forEach((item) => {
+      const itemTagList = document.querySelectorAll(`.listOf${special} a`);
+      itemTagList.forEach((item) => {
+        console.log(item.innerHTML);
         item.addEventListener("click", () => {
-          const selectedIngredient = item.innerHTML;
+          const selectedFilter = item.innerHTML;
           removeList(list);
           const filteredRecipes = currentRecipes.filter((recipe) => {
-            return recipe.ingredients.some(
-              (ingredient) => ingredient.ingredient === selectedIngredient
-            );
+            if (special === "ingredients") {
+              return recipe.ingredients.some(
+                (ingredient) => ingredient.ingredient === selectedFilter
+              );
+            } else if (special === "appareil") {
+              return recipe.appliance === selectedFilter;
+            } else if (special === "ustensils") {
+              return recipe.ustensils.includes(selectedFilter);
+            }
           });
           displayRecipes(filteredRecipes);
+          filterTags(filteredRecipes);
         });
       });
     } else {
       removeList(list);
-      seeRecipes = false;
     }
-    printFavoriItem();
+    printTagItem();
   };
 
-  const allRecipesBySpan = (list, filterFunction, special) => {
+  const filterByClick = (list, filterFunction, special) => {
     if (seeRecipes == false) {
       list.style.display = "grid";
       list.innerHTML = "";
       const addedItems = {};
-      recipes.forEach((recipe) => {
+      currentRecipes.forEach((recipe) => {
         filterFunction(recipe).forEach((item) => {
           const itemName = item.toLowerCase();
           if (!addedItems[itemName]) {
@@ -85,43 +90,49 @@ const filterTags = (recipes) => {
       seeRecipes = true;
 
       // Ajouter un gestionnaire d'événements click à chaque élément de la liste
-      const itemFavoriList = document.querySelectorAll(
-        ".search-list-ingredients a"
-      );
-      itemFavoriList.forEach((item) => {
+      const itemTagList = document.querySelectorAll(`.listOf${special} a`);
+      itemTagList.forEach((item) => {
         item.addEventListener("click", () => {
-          const selectedIngredient = item.innerHTML;
+          const selectedFilter = item.innerHTML;
           removeList(list);
           const filteredRecipes = currentRecipes.filter((recipe) => {
-            return recipe.ingredients.some(
-              (ingredient) => ingredient.ingredient === selectedIngredient
-            );
+            if (special === "ingredients") {
+              return recipe.ingredients.some(
+                (ingredient) => ingredient.ingredient === selectedFilter
+              );
+            } else if (special === "appareil") {
+              return recipe.appliance === selectedFilter;
+            } else if (special === "ustensils") {
+              return recipe.ustensils.includes(selectedFilter);
+            }
           });
           displayRecipes(filteredRecipes);
+          filterTags(filteredRecipes);
         });
       });
     } else {
       removeList(list);
       seeRecipes = false;
     }
-    printFavoriItem();
+    printTagItem();
   };
 
   const removeList = (list) => {
     list.innerHTML = "";
   };
-
   // Ajouter un événement "click" au bouton
-  console.log('install event')
+  console.log("install event");
   ingredientSpan.addEventListener("click", () => {
-    console.log('triggered event')
+    console.log("triggered event");
     // appeler cette fonction
-    allRecipesBySpan(
+    filterByClick(
       ingredientList,
-      (recipe) => {
-        return recipe.ingredients.map((ingredient) => ingredient.ingredient);
+      (currentRecipes) => {
+        return currentRecipes.ingredients.map(
+          (ingredient) => ingredient.ingredient
+        );
       },
-      "ingredient"
+      "ingredients"
     );
   });
 
@@ -129,18 +140,20 @@ const filterTags = (recipes) => {
     filterByInput(
       ingredientList,
       e.target,
-      (recipe) => {
-        return recipe.ingredients.map((ingredient) => ingredient.ingredient);
+      (currentRecipes) => {
+        return currentRecipes.ingredients.map(
+          (ingredient) => ingredient.ingredient
+        );
       },
-      "ingredient"
+      "ingredients"
     );
   });
 
   appareilSpan.addEventListener("click", () => {
-    allRecipesBySpan(
+    filterByClick(
       appareilList,
-      (recipe) => {
-        return [recipe.appliance];
+      (currentRecipes) => {
+        return [currentRecipes.appliance];
       },
       "appareil"
     );
@@ -150,18 +163,18 @@ const filterTags = (recipes) => {
     filterByInput(
       appareilList,
       e.target,
-      (recipe) => {
-        return [recipe.appliance];
+      (currentRecipes) => {
+        return [currentRecipes.appliance];
       },
       "appareil"
     );
   });
 
   ustensilesSpan.addEventListener("click", () => {
-    allRecipesBySpan(
+    filterByClick(
       ustensilesList,
-      (recipe) => {
-        return recipe.ustensils;
+      (currentRecipes) => {
+        return currentRecipes.ustensils;
       },
       "ustensils"
     );
@@ -171,12 +184,11 @@ const filterTags = (recipes) => {
     filterByInput(
       ustensilesList,
       e.target,
-      (recipe) => {
-        return recipe.ustensils;
+      (currentRecipes) => {
+        return currentRecipes.ustensils;
       },
       "ustensils"
     );
   });
 };
-
 export { filterTags };

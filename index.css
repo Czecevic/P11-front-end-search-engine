@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 main {
   font-family: DM Sans, sans-serif;
   padding: 0 100px 0 100px;
@@ -97,21 +102,21 @@ nav li {
 
 .tag-ingredient {
   background-color: #3282f7;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 5px;
   border-radius: 5%;
 }
 
 .tag-appliances {
   background-color: #68d9a4;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 5px;
   border-radius: 5%;
 }
 
 .tag-ustensils {
   background-color: #ed6454;
-  font-size: 1.2em;
+  font-size: 1em;
   padding: 5px;
   border-radius: 5%;
 }
@@ -195,13 +200,13 @@ nav li {
   color: white;
 }
 
-.listOfAppareil {
+.listOfappareil {
   display: flex;
   background-color: #68d9a4;
   color: white;
 }
 
-.listOfUstencils {
+.listOfustensils {
   display: flex;
   background-color: #ed6454;
   color: white;
@@ -270,6 +275,7 @@ main li {
   display: flex;
   gap: 10px;
   overflow-y: auto;
+  justify-content: space-between;
 }
 
 nav button {
@@ -278,6 +284,18 @@ nav button {
 }
 
 #ingredientsList {
+  max-height: 330px;
+  max-width: 950px;
+  overflow: auto;
+}
+
+#appareilsList {
+  max-height: 330px;
+  max-width: 950px;
+  overflow: auto;
+}
+
+#ustensilesList {
   max-height: 330px;
   max-width: 950px;
   overflow: auto;
@@ -314,17 +332,18 @@ nav button {
 }
 
 .cardRecipe h2 {
-  font-size: 20px;
+  font-size: 15px;
   margin-top: 0;
 }
 
 .recipeDescription {
-  font-size: 12px;
+  font-size: 10px;
   width: 100%;
 }
 
 .cardRecipe ul {
-  width: 100%;
+  width: 40%;
+  font-size: 10px;
   height: 10rem;
 }
 
