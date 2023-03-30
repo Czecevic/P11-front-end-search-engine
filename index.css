@@ -200,13 +200,13 @@ nav li {
   color: white;
 }
 
-.listOfappareil {
+.listOfAppareil {
   display: flex;
   background-color: #68d9a4;
   color: white;
 }
 
-.listOfustensils {
+.listOfUstencils {
   display: flex;
   background-color: #ed6454;
   color: white;
@@ -274,7 +274,6 @@ main li {
 .cardRecipeingredientDescription {
   display: flex;
   gap: 10px;
-  overflow-y: auto;
   justify-content: space-between;
 }
 

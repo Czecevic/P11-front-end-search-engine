@@ -1,7 +1,9 @@
 import { tagList } from "../utils/const.js";
 import { currentRecipes } from "./mainSearch.js";
 import { displayRecipes } from "./index.js";
+import recipes from "../recipes.js";
 let selectedTags = []; // liste pour stocker tous les tags sélectionnés
+let itemArray = [];
 
 const printTagItem = () => {
   // je récupère ma liste d'ingrédient, appareil et ustencils
@@ -10,7 +12,9 @@ const printTagItem = () => {
   itemTag.forEach((item) => {
     // on rajoute un événement à chaque fois que 'on clique sur cet événement
     item.addEventListener("click", (e) => {
-      console.log(currentRecipes);
+      // ----------------------------------------------------------------
+      // console.log(currentRecipes);
+      // ----------------------------------------------------------------
       // on créer le tag avec son type qui nous servira pour la class et un bouton pour pouvoir le supprimer
       let tag = e.currentTarget.innerHTML.toLowerCase();
       let tagType = "";
@@ -46,7 +50,9 @@ const printTagItem = () => {
       }
       // --------------------------- Appareil -------------------------------------
       else if (
-        currentRecipes.some((recipe) => recipe.appliance.toLowerCase() === tag)
+        currentRecipes.some((recipe) =>
+          recipe.appliance.toLowerCase().includes(tag)
+        )
       ) {
         tagType = "appliances";
       }
@@ -56,13 +62,13 @@ const printTagItem = () => {
         // stocker la liste des tags via selectedTags
         selectedTags.push(tag);
         tagList.innerHTML += `
-              <div class="tag-${tagType}">
-              <span>${tag}</span>
-              <button class="remove-tag">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.59 6L10 8.59L7.41 6L6 7.41L8.59 10L6 12.59L7.41 14L10 11.41L12.59 14L14 12.59L11.41 10L14 7.41L12.59 6ZM10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18Z" fill="white"/>
-              </svg>
-              </button>
+            <div class="tag-${tagType}">
+            <span>${tag}</span>
+            <button class="remove-tag">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.59 6L10 8.59L7.41 6L6 7.41L8.59 10L6 12.59L7.41 14L10 11.41L12.59 14L14 12.59L11.41 10L14 7.41L12.59 6ZM10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18Z" fill="white"/>
+            </svg>
+            </button>
               </div>`;
       }
       // me permettra de supprimer le tag choisi
@@ -73,74 +79,51 @@ const printTagItem = () => {
           removeTag(button.previousElementSibling.innerHTML);
         });
       });
-      updateRecipes([...currentRecipes], tagType, selectedTags);
-      // if (item.classList.contains("ingredient")) {
-      //   currentRecipes = recipes.filter((recipe) => {
-      //     const ingredient = recipe.ingredients.some((ingredient) =>
-      //       ingredient.ingredient.toLowerCase().includes(item)
-      //     );
-      //     console.log(ingredient);
-      //   });
-      // }
+      updateRecipes(recipes);
       console.log(currentRecipes);
     });
   });
 };
 
-const updateRecipes = ([...currentRecipes], type, allTag) => {
-  currentRecipes.forEach((objCurrentRecipes) => {
-    switch (type) {
-      case "ingredient":
-        console.log(
-          objCurrentRecipes.ingredients.forEach((ingredient) => {
-            if (!allTag.includes(ingredient.ingredient.toLowerCase())) {
-              console.log();
-            }
-          })
+const updateRecipes = (recipes) => {
+  // console.log(selectedTags.indexOf(tag));
+  // On filtre les recettes qui correspondent aux tags sélectionnés
+  console.log(selectedTags);
+  if (selectedTags.length >= 1) {
+    selectedTags.forEach((tag) => {
+      console.log(tag);
+      itemArray = recipes.filter((recipe) => {
+        // on parcours chacune des variables pour vérifier si l'ingredient est includes ou non dans le recipe
+        const ingredient = recipe.ingredients.some((ingredient) =>
+          ingredient.ingredient.toLowerCase().includes(tag)
         );
-        // currentRecipesforEach((ingredient) => {
-        //   console.log(ingredient.ingredient.toLowerCase());
-        // });
-        break;
-      case "appliances":
-        console.log("test2");
-        break;
-      case "ustensils":
-        console.log("test3");
-        break;
-    }
-  });
+        const appliance = recipe.appliance.toLowerCase().includes(tag);
+        const ustencils = recipe.ustensils.some((ustensil) =>
+          ustensil.toLowerCase().includes(tag)
+        );
+        return ingredient || appliance || ustencils;
+      });
+      // on remet currentRecipes à zero pour pouvoir intégrer les éléments
+      // de itemArray
+    });
+    itemArray.forEach((tagRecipes) => {
+      currentRecipes.push(tagRecipes);
+      // console.log(currentRecipes);
+    });
+    displayRecipes(currentRecipes);
+  } else {
+    displayRecipes(recipes);
+  }
 };
-
-// const updateRecipes = () => {
-//   itemArray = [];
-//   for (let i = 0; i < currentRecipes.length; i++) {
-//     let recipeTags = [];
-//     currentRecipes[i].ingredients.forEach((ingredient) => {
-//       recipeTags.push(ingredient.ingredient.toLowerCase());
-//     });
-//     currentRecipes[i].ustensils.forEach((ustensil) => {
-//       recipeTags.push(ustensil.toLowerCase());
-//     });
-//     // console.log(currentRecipes[i].appliance);
-//     recipeTags.push(currentRecipes[i].appliance.toLowerCase());
-
-//     if (selectedTags.every((tag) => recipeTags.includes(tag))) {
-//       itemArray.push(currentRecipes[i]);
-//     }
-//   }
-//   currentRecipes.length = 0;
-//   itemArray.forEach((elemItemArray) => {
-//     currentRecipes.push(elemItemArray);
-//   });
-//   displayRecipes(currentRecipes);
-// };
-
 const removeTag = (tag) => {
   selectedTags = selectedTags.filter((selectedTag) => selectedTag !== tag);
+  // récupère le tag choisi
   tagList.innerHTML = "";
+  // parcours les tags selectionnés
   selectedTags.forEach((selectedTag) => {
+    console.log(selectedTag);
     let tagType = "";
+    // --------------------------- ingredient -------------------------------------
     if (
       currentRecipes.some((recipe) =>
         recipe.ingredients
@@ -149,6 +132,7 @@ const removeTag = (tag) => {
       )
     ) {
       tagType = "ingredient";
+      // --------------------------- Ustensils -------------------------------------
     } else if (
       currentRecipes.some((recipe) =>
         recipe.ustensils
@@ -157,6 +141,7 @@ const removeTag = (tag) => {
       )
     ) {
       tagType = "ustensils";
+      // --------------------------- Appliances -------------------------------------
     } else if (
       currentRecipes.some(
         (recipe) => recipe.appliance.toLowerCase() === selectedTag
@@ -164,15 +149,6 @@ const removeTag = (tag) => {
     ) {
       tagType = "appliances";
     }
-    tagList.innerHTML += `
-    <div class="tag-${tagType}">
-      <span>${selectedTag}</span>
-      <button class="remove-tag">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12.59 6L10 8.59L7.41 6L6 7.41L8.59 10L6 12.59L7.41 14L10 11.41L12.59 14L14 12.59L11.41 10L14 7.41L12.59 6ZM10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18Z" fill="white"/>
-      </svg>
-      </button>
-      </div>`;
   });
   const removeButtons = document.querySelectorAll(".remove-tag");
   removeButtons.forEach((button) => {
@@ -180,7 +156,7 @@ const removeTag = (tag) => {
       removeTag(button.previousElementSibling.innerHTML);
     });
   });
-  // updateRecipes();
+  updateRecipes(recipes);
 };
 
 export { printTagItem };

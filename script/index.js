@@ -17,8 +17,8 @@ const displayRecipes = (recipes) => {
 };
 
 const init = () => {
-  displayRecipes(recipes);
-  mainSearch(recipes);
+  displayRecipes(currentRecipes);
+  mainSearch(currentRecipes);
   filterTags(currentRecipes);
 };
 

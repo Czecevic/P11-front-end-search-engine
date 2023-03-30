@@ -14,13 +14,17 @@ import { currentRecipes } from "./mainSearch.js";
 import { displayRecipes } from "./index.js";
 
 const filterTags = (recipes) => {
+  // seeRecipes permet de gérer l'affichage via le boolean
   let seeRecipes = false;
+  // filtre les input que nous rentrons via la const key
   const filterByInput = (list, input, filterFunction, special) => {
     const key = input.value.toLowerCase();
+    // si key > 0 alors nous affichons la liste
     if (key.length > 0) {
       list.style.display = "grid";
       list.innerHTML = "";
       const addedItems = {};
+      // on parcours currentRecipes pour pouvoir filtrer les propriétés et attributs ayant une affinité avec le tag selectionné
       recipes.forEach((recipe) => {
         filterFunction(recipe).forEach((item) => {
           const itemName = item.toLowerCase();
