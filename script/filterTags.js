@@ -120,10 +120,6 @@ const filterTags = (recipes) => {
     }
     printTagItem();
   };
-
-  const removeList = (list) => {
-    list.innerHTML = "";
-  };
   // Ajouter un événement "click" au bouton
   console.log("install event");
   ingredientSpan.addEventListener("click", () => {
@@ -195,4 +191,8 @@ const filterTags = (recipes) => {
     );
   });
 };
-export { filterTags };
+
+const removeList = (list) => {
+  list.innerHTML = "";
+};
+export { filterTags, removeList };
