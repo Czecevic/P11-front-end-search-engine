@@ -194,7 +194,7 @@ nav li {
   background-color: #ed6454;
 }
 
-.listOfingredients {
+.listOfIngredients {
   display: flex;
   background-color: #3282f7;
   color: white;
@@ -206,7 +206,7 @@ nav li {
   color: white;
 }
 
-.listOfUstencils {
+.listOfUstensils {
   display: flex;
   background-color: #ed6454;
   color: white;

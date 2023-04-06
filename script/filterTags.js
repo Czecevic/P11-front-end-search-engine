@@ -13,6 +13,10 @@ import { printTagItem } from "./tag.js";
 import { currentRecipes } from "./mainSearch.js";
 import { displayRecipes } from "./index.js";
 
+const removeList = (list) => {
+  list.innerHTML = "";
+};
+
 const filterTags = (recipes) => {
   // seeRecipes permet de gérer l'affichage via le boolean
   let seeRecipes = false;
@@ -30,7 +34,6 @@ const filterTags = (recipes) => {
           const itemName = item.toLowerCase();
           if (itemName.includes(key)) {
             if (!addedItems[itemName]) {
-              console.log(item);
               list.innerHTML += `<li class="search-list-${special}">
               <a id="itemFavori">${item}</a>
               </li>`;
@@ -43,7 +46,6 @@ const filterTags = (recipes) => {
       // Ajouter un gestionnaire d'événements click à chaque élément de la liste
       const itemTagList = document.querySelectorAll(`.listOf${special} a`);
       itemTagList.forEach((item) => {
-        console.log(item.innerHTML);
         item.addEventListener("click", () => {
           const selectedFilter = item.innerHTML;
           removeList(list);
@@ -90,9 +92,7 @@ const filterTags = (recipes) => {
       listItems.sort((a, b) => a.innerHTML.localeCompare(b.innerHTML));
       list.innerHTML = "";
       listItems.forEach((li) => list.appendChild(li));
-
       seeRecipes = true;
-
       // Ajouter un gestionnaire d'événements click à chaque élément de la liste
       const itemTagList = document.querySelectorAll(`.listOf${special} a`);
       itemTagList.forEach((item) => {
@@ -100,13 +100,13 @@ const filterTags = (recipes) => {
           const selectedFilter = item.innerHTML;
           removeList(list);
           const filteredRecipes = currentRecipes.filter((recipe) => {
-            if (special === "ingredients") {
+            if (special === "Ingredients") {
               return recipe.ingredients.some(
                 (ingredient) => ingredient.ingredient === selectedFilter
               );
-            } else if (special === "appareil") {
+            } else if (special === "Appareil") {
               return recipe.appliance === selectedFilter;
-            } else if (special === "ustensils") {
+            } else if (special === "Ustensils") {
               return recipe.ustensils.includes(selectedFilter);
             }
           });
@@ -120,10 +120,6 @@ const filterTags = (recipes) => {
     }
     printTagItem();
   };
-
-  const removeList = (list) => {
-    list.innerHTML = "";
-  };
   // Ajouter un événement "click" au bouton
   console.log("install event");
   ingredientSpan.addEventListener("click", () => {
@@ -136,7 +132,7 @@ const filterTags = (recipes) => {
           (ingredient) => ingredient.ingredient
         );
       },
-      "ingredients"
+      "Ingredients"
     );
   });
 
@@ -149,7 +145,7 @@ const filterTags = (recipes) => {
           (ingredient) => ingredient.ingredient
         );
       },
-      "ingredients"
+      "Ingredients"
     );
   });
 
@@ -159,7 +155,7 @@ const filterTags = (recipes) => {
       (currentRecipes) => {
         return [currentRecipes.appliance];
       },
-      "appareil"
+      "Appareil"
     );
   });
 
@@ -170,7 +166,7 @@ const filterTags = (recipes) => {
       (currentRecipes) => {
         return [currentRecipes.appliance];
       },
-      "appareil"
+      "Appareil"
     );
   });
 
@@ -180,7 +176,7 @@ const filterTags = (recipes) => {
       (currentRecipes) => {
         return currentRecipes.ustensils;
       },
-      "ustensils"
+      "Ustensils"
     );
   });
 
@@ -191,8 +187,9 @@ const filterTags = (recipes) => {
       (currentRecipes) => {
         return currentRecipes.ustensils;
       },
-      "ustensils"
+      "Ustensils"
     );
   });
 };
-export { filterTags };
+
+export { filterTags, removeList };

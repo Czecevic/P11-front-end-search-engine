@@ -21,10 +21,10 @@ const searchInput = document.querySelector(".search");
 const tagList = document.querySelector("#tagList");
 export {
   ingredientList,
-  btnIngredient,
-  btnAppareil,
   appareilList,
   ustensilesList,
+  btnIngredient,
+  btnAppareil,
   btnUstensiles,
   recette,
   searchInput,
