@@ -127,10 +127,6 @@ const printTagItem = () => {
         itemArray.forEach((tagRecipes) => {
           currentRecipes.push(tagRecipes);
         });
-        // console.log(selectedTags);
-        selectedTags.splice(selectedTags.indexOf(tag.innerHTML), 1);
-        // console.log(selectedTags);
-        console.log(currentRecipes);
         displayRecipes(currentRecipes);
       });
     });
